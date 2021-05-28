@@ -1,12 +1,28 @@
 from django import forms
 from django.contrib.auth import authenticate
+from django.http.response import Http404
 from django.shortcuts import redirect, render
 from .forms import SignupForm
 from django.contrib.auth import login, authenticate
+from .models import Profile,Projects,Ratings
+from django.core.exceptions import ObjectDoesNotExist
+import datetime as dt
 
 # Create your views here.
 def index(request):
-  return render(request,'index.html',{})
+  date=dt.date.today()
+  try:
+    projects=Projects.get_all_projects()
+  except Projects.DoesNotExist:
+    raise Http404()
+  project_ratings=projects.order_by('ratings__average_rating')
+  best_rating=None
+  best_votes=None
+  if len(project_ratings)>=1:
+    best_rating=project_ratings[0]
+    ratings=Ratings.project_votes(best_rating.id)
+    best_votes=ratings[:3]
+  return render(request,'index.html',{"date":date,"highest_vote":best_votes,"ratings":ratings,"projects":projects})
 
 def signup(request):
   if request.method =='POST':
