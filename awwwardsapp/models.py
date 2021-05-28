@@ -80,7 +80,16 @@ class Ratings(models.Model):
   def save_rating(self):
     self.save()
   
-  def delet
+  def delete_rating(self):
+    self.delete()
+
+  @classmethod
+  def project_votes(cls,project):
+    return cls.objects.filter(project=project)
+
+  @classmethod
+  def project_voters(cls,rater):
+    return cls.objects.filter(rater=rater)
 
   class Meta:
     ordering=['-pub_date']
