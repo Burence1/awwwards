@@ -2,11 +2,12 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.http.response import Http404
 from django.shortcuts import redirect, render
-from .forms import SignupForm
+from .forms import SignupForm,AddProjectForm
 from django.contrib.auth import login, authenticate
 from .models import Profile,Projects,Ratings
 from django.core.exceptions import ObjectDoesNotExist
 import datetime as dt
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
@@ -38,3 +39,20 @@ def signup(request):
   else:
     form=SignupForm()
   return render(request,'registration/registration.html',{"form":form})
+
+def new_project(request):
+  if request.method == "POST":
+    form = AddProjectForm(request.POST,request.FILES)
+    user=request.user
+    try:
+      profile=Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+      raise Http404()
+    if form.is_valid():
+      added_project=form.save(commit=False)
+      added_project.profile = profile
+      added_project.save()
+    return redirect('home')
+  else:
+    form=AddProjectForm()
+  return render(request,'new_project.html',{"form":form})
