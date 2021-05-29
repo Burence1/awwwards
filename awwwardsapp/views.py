@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required
+# @login_required
 def index(request):
   date=dt.date.today()
   try:
@@ -29,7 +29,7 @@ def index(request):
     best_votes=ratings[:3]
   return render(request,'index.html',{"date":date,"highest_vote":best_votes,"projects":projects,"highest_rating":best_rating})
 
-@login_required
+
 def signup(request):
   if request.method =='POST':
     form = SignupForm(request.POST)

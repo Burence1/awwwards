@@ -28,8 +28,8 @@ MODE = config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
-
+# DEBUG = config('DEBUG')
+DEBUG=True
 # ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 ALLOWED_HOSTS=[]
 
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'awwwardsapp.apps.AwwwardsappConfig',
     'cloudinary',
-    'bootstrap5',
+    'bootstrap4',
     'crispy_forms',
 ]
 
