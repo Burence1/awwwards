@@ -160,7 +160,7 @@ def profile(request,profile_id):
 def update_profile(request,username):
   user=User.objects.get(username=username)
   current_user=request.user
-  if request.methos =='POST':
+  if request.method =='POST':
     user_form=UpdateUserForm(request.POST,instance=current_user)
     profile_form=UpdateProfile(request.POST,request.FILES, instance=current_user.profile)
     if user_form.is_valid and profile_form.is_valid():
