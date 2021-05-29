@@ -61,7 +61,7 @@ def new_project(request):
     return redirect('home')
   else:
     form=AddProjectForm()
-  return render(request,'/project/new_project.html',{"form":form})
+  return render(request,'project/new_project.html',{"form":form})
 
 @login_required
 def search_project(request):
