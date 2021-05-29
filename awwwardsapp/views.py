@@ -10,8 +10,10 @@ from .models import Profile,Projects,Ratings
 from django.core.exceptions import ObjectDoesNotExist
 import datetime as dt
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def index(request):
   date=dt.date.today()
   try:
@@ -27,6 +29,7 @@ def index(request):
     best_votes=ratings[:3]
   return render(request,'index.html',{"date":date,"highest_vote":best_votes,"projects":projects,"highest_rating":best_rating})
 
+@login_required
 def signup(request):
   if request.method =='POST':
     form = SignupForm(request.POST)
@@ -42,6 +45,7 @@ def signup(request):
     form=SignupForm()
   return render(request,'registration/registration.html',{"form":form})
 
+@login_required
 def new_project(request):
   if request.method == "POST":
     form = AddProjectForm(request.POST,request.FILES)
@@ -59,6 +63,7 @@ def new_project(request):
     form=AddProjectForm()
   return render(request,'/project/new_project.html',{"form":form})
 
+@login_required
 def search_project(request):
   if "project" in request.GET and request.GET["project"]:
     search=request.GET.get("project")
@@ -96,6 +101,7 @@ def search_project(request):
     message="No search made"
     return render(request,"search/search.html",{"message":message})
 
+@login_required
 def project(request,project_id):
   project=Projects.objects.get(pk=project_id)
   ratings=Ratings.project_votes(project.id)
@@ -135,19 +141,22 @@ def project(request,project_id):
       new_rating.save_rating()
       return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
 
+@login_required
 def profile(request,profile_id):
   try:
     user=User.objects.get(pk=profile_id)
     profile=Profile.objects.get(user=user)
     profile_projects=Projects.user_projects(profile)
     projects_stats=profile_projects.count()
-    votes=[i.average_rating for i in profile_projects]
+    project_ratings = Ratings.objects.filter(profile_projects)
+    votes=[i.average_rating for i in project_ratings]
     total_ratings=sum(votes)
     average=total_ratings/len(profile_projects)
   except Profile.DoesNotExist:
     raise Http404()
   return render(request,'profile/profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
 
+@login_required
 def update_profile(request,username):
   user=User.objects.get(username=username)
   current_user=request.user
