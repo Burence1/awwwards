@@ -55,10 +55,22 @@
           {% endif %}
           <time>{{project.pub_date}}</time>
         </div>
+        <article class="card__article">
+          <h3><a href="{% url 'project' project.id %}">{{project.name}}</a></h3>
+          <p>{{project.description}}</p>
+        </article>
+        <div class="card__action">
+          <div class="card__author">
+            <img src="{{project.profile.profile_pic.url}}" alt="user">
+            <div class="card__author-content">
+              By <a href="{% url 'profile' project.profile.user.id %}">{{project.profile.user.username}}</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  {%endif%}
+  {%endfor%}
 </div>
 {%endif%}
 {%endblock%}
