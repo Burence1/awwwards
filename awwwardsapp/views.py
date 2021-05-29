@@ -148,7 +148,7 @@ def profile(request,profile_id):
     profile=Profile.objects.get(user=user)
     profile_projects=Projects.user_projects(profile)
     projects_stats=profile_projects.count()
-    project_ratings = Ratings.objects.filter(profile_projects)
+    project_ratings = Ratings.objects.filter(projects=profile_projects[0])
     votes=[i.average_rating for i in project_ratings]
     total_ratings=sum(votes)
     average=total_ratings/len(profile_projects)

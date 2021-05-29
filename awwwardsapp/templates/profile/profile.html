@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="profile-image text-center">
+        <img src="{{profile.profile_pic.url}}" class="rounded-circle" alt="profile_image" style="height: 4em;width: 4em;">
+        <div class="profile_name">
+          <a href="{{profile.link}}" target="_blank">{{profile.user.username}}</p></a>
+        </div>
+        <div class="profile_location">
+          <p class="text-muted">{{profile.location}}</p>
+        </div>
+        <div class="profile_bio">
+          <p>{{profile.bio}}</p>
+        </div>
+        <div class="profile_image">
+          <p>{{profile.email}}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}
