@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.core.checks import messages
+from django.http.request import HttpHeaders
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from .forms import SignupForm,AddProjectForm,RatingForm
@@ -69,7 +70,7 @@ def search_project(request):
         form = RatingForm()
         project_votes=Ratings.project_votes(single_project.id)
         project_voters=single_project.voters
-        voters_list=[i.voters for i in ]
+        voters_list=[i.voters for i in project_voters]
 
         for vote in project_votes:
           current_user=request.user
@@ -133,3 +134,16 @@ def project(request,project_id):
       new_rating.average_rating=round(average_rating,2)
       new_rating.save_rating()
       return render(request,'project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
+
+def profile(request,profile_id):
+  try:
+    user=User.objects.get(pk=profile_id)
+    profile=Profile.objects.get(user=user)
+    profile_projects=Projects.user_projects(profile)
+    projects_stats=profile_projects.count()
+    votes=[i.average_rating for i in profile_projects]
+    total_ratings=sum(votes)
+    average=total_ratings/len(profile_projects)
+  except Profile.DoesNotExist:
+    raise Http404()
+  return render(request,'profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
