@@ -17,7 +17,7 @@ def index(request):
     projects=Projects.get_all_projects()
   except Projects.DoesNotExist:
     raise Http404()
-  project_ratings=projects.order_by('ratings__average_rating')
+  project_ratings=projects.order_by('-ratings__average_rating')
   best_rating=None
   best_votes=None
   if len(project_ratings)>=1:
@@ -69,6 +69,7 @@ def search_project(request):
         form = RatingForm()
         project_votes=Ratings.project_votes(single_project.id)
         project_voters=single_project.voters
+        voters_list=[i.voters for i in ]
 
         for vote in project_votes:
           current_user=request.user
@@ -77,7 +78,7 @@ def search_project(request):
             profile=Profile.objects.get(user=user)
             voters=Ratings.project_voters(profile)
             rated=False
-            if current_user.id in voters:
+            if current_user.id in voters_list:
               rated=True
           except Profile.DoesNotExist:
             rated=False
@@ -93,3 +94,26 @@ def search_project(request):
   else:
     message="No search made"
     return render(request,"search.html",{"message":message})
+
+def project(request,project_id):
+  project=Projects.objects.get(pk=project_id)
+  ratings=Ratings.project_votes(project.id)
+  rating_stats=ratings.count()
+  current_user=request.user
+  rating_status=None
+  if rating_status is None:
+    rating_status = False
+  else:
+    rating_status = True
+
+  if request.method == 'POST':
+    form = RatingForm(request.POST)
+    if form.is_valid():
+      new_rating =form.save(commit=False)
+      new_rating.rater=current_user
+      new_rating.projects=project
+      new_rating.save_rating()
+
+      project_ratings=Ratings.objects.get(project)
+
+      
