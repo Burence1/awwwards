@@ -147,3 +147,5 @@ def profile(request,profile_id):
   except Profile.DoesNotExist:
     raise Http404()
   return render(request,'profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
+
+def update_profile(request):
