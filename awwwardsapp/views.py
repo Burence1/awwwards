@@ -57,7 +57,7 @@ def new_project(request):
     return redirect('home')
   else:
     form=AddProjectForm()
-  return render(request,'new_project.html',{"form":form})
+  return render(request,'/project/new_project.html',{"form":form})
 
 def search_project(request):
   if "project" in request.GET and request.GET["project"]:
@@ -83,18 +83,18 @@ def search_project(request):
               rated=True
           except Profile.DoesNotExist:
             rated=False
-        return render(request,'search.html',{"form":form,"single_project":single_project,"rated":rated,"project_votes":project_votes,"project_voters":project_voters})
+        return render(request,'search/search.html',{"form":form,"single_project":single_project,"rated":rated,"project_votes":project_votes,"project_voters":project_voters})
       elif len(project) >= 2:
         stats=project.count()
-        return render(request,"all_search.html",{"stats":stats,"project":project})
+        return render(request,"search/all_search.html",{"stats":stats,"project":project})
     except Projects.DoesNotExist:
       all_projects=Projects.get_all_projects()
       message = f"{search} Does not exist"
-      return render(request,"all_search.html",{"message":message,"all_projects":all_projects})
+      return render(request,"search/all_search.html",{"message":message,"all_projects":all_projects})
 
   else:
     message="No search made"
-    return render(request,"search.html",{"message":message})
+    return render(request,"search/search.html",{"message":message})
 
 def project(request,project_id):
   project=Projects.objects.get(pk=project_id)
@@ -133,7 +133,7 @@ def project(request,project_id):
       new_rating.usability_average=round(usability_average,2)
       new_rating.average_rating=round(average_rating,2)
       new_rating.save_rating()
-      return render(request,'project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
+      return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
 
 def profile(request,profile_id):
   try:
@@ -146,7 +146,7 @@ def profile(request,profile_id):
     average=total_ratings/len(profile_projects)
   except Profile.DoesNotExist:
     raise Http404()
-  return render(request,'profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
+  return render(request,'profile/profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
 
 def update_profile(request,username):
   user=User.objects.get(username=username)
@@ -162,4 +162,4 @@ def update_profile(request,username):
     user_form=UpdateUserForm(instance=current_user)
     update_profile=UpdateProfile(instance=current_user.profile)
   
-  return render(request,"updateprof.html",{"user_form":user_form,"update_profile":update_profile})
+  return render(request,"profile/updateprof.html",{"user_form":user_form,"update_profile":update_profile})
