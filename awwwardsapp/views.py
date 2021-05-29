@@ -4,7 +4,7 @@ from django.core.checks import messages
 from django.http.request import HttpHeaders
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect, render
-from .forms import SignupForm,AddProjectForm,RatingForm
+from .forms import SignupForm,AddProjectForm,RatingForm,UpdateUserForm,UpdateProfile
 from django.contrib.auth import login, authenticate
 from .models import Profile,Projects,Ratings
 from django.core.exceptions import ObjectDoesNotExist
@@ -148,4 +148,18 @@ def profile(request,profile_id):
     raise Http404()
   return render(request,'profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
 
-def update_profile(request):
+def update_profile(request,username):
+  user=User.objects.get(username=username)
+  current_user=request.user
+  if request.methos =='POST':
+    user_form=UpdateUserForm(request.POST,instance=current_user)
+    profile_form=UpdateProfile(request.POST,request.FILES, instance=current_user.profile)
+    if user_form.is_valid and profile_form.is_valid():
+      user_form.save()
+      profile_form.save()
+      return redirect('profile',user.username)
+  else:
+    user_form=UpdateUserForm(instance=current_user)
+    update_profile=UpdateProfile(instance=current_user.profile)
+  
+  return render(request,"updateprof.html",{"user_form":user_form,"update_profile":update_profile})

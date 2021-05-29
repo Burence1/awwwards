@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import fields
 from .models import Ratings,Profile,Projects
 from django.forms import ModelForm
 from django import forms
@@ -23,5 +24,10 @@ class RatingForm(ModelForm):
 class UpdateUserForm(ModelForm):
   email = forms.EmailField(max_length=254)
   class Meta:
-    model = Profile
+    model = User
     fields = ['username', 'email']
+
+class UpdateProfile(ModelForm):
+  class Meta:
+    model = Profile
+    fields = ['location','profile_pic','bio','email']
