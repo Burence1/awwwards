@@ -85,7 +85,7 @@ class Ratings(models.Model):
 
   @classmethod
   def project_votes(cls,project):
-    return cls.objects.filter(project=project)
+    return cls.objects.filter(projects=project)
 
   @classmethod
   def project_voters(cls,rater):

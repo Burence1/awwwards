@@ -10,7 +10,8 @@ urlpatterns=[
   path('new_project/',views.new_project,name='new_project'),
   path('search/',views.search_project,name='search'),
   path('project/<int:project_id>/',views.project,name='project'),
-  path('profile/(\d+)',views.profile,name='profile'),
+  path('profile/(?P<profile_id>\d+)', views.profile, name='profile'),
+  # path('profile/<int:profile_id>/',views.profile,name='profile'),
   path('update_profile/<username>/',views.update_profile,name='update_profile')
 ]
 

@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 {% if highest_rating %}
-<div class="jumbotron" style="background-image: url('{{highest_rating.project_image.url}}');">
+<div class="jumbotron" style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{highest_rating.project_image.url}}');">
   <div class="of-the-day-wrapper-top">
     <label>
       Site of the day <span>{{date}}</span>
@@ -15,7 +15,7 @@
   <div class="highest_details">
     <a href="{%url 'project' highest_rating.id%}">{{highest_rating.name}}</a>
     <div class="developer">BY <a
-        href="{% url 'profile' highest_rating.profile.user.id %}">{{highest_rating.profile.user.username}}</a>FROM
+        href="{% url 'profile' highest_rating.profile.user.id %}">BY {{highest_rating.profile.user.username}}</a>FROM
       {{highest_rating.profile.location}} WITH {{highest_rating.average_rating}}</div>
     <div class="d-flex">
       <div id="average">{{highest_rating.ratings.average_rating | floatformat:0}}<span>average</span></div>
@@ -26,7 +26,7 @@
   </div>
   <div class="voters_details">
     <div class="voters">
-      <a href="{% url 'profile' highest_url.profile.user.id %}"><img
+      <a href="{% url 'profile' highest_rating.profile.user.id %}"><img
           src="{{highest_url.profile.profile_image.url}}"></a>
     </div>
   </div>
@@ -41,7 +41,7 @@
   <div class="col-md-4">
     <div class="card shadow p-3 mb-5 bg-white rounded card quote-card">
       <div class="card__image border-tlr-radius">
-        <a href="{% url 'project' project.id %}"><img src="{{project.project_image.url}}" alt="image"
+        <a href="{% url 'project' project.id %}"><img src="{{project.project_image.url}}" alt="image" style="width: 100%;"
             class="border-tlr-radius"></a>
       </div>
       <div class="cardbody">
@@ -61,9 +61,9 @@
         </article>
         <div class="card__action">
           <div class="card__author">
-            <img src="{{project.profile.profile_pic.url}}" alt="user">
+            <img src="{{project.profile.profile_pic.url}}" class="rounded-circle" alt="user">
             <div class="card__author-content">
-              By <a href="{% url 'profile' project.profile.user.id %}">{{project.profile.user.username}}</a>
+              By <a href="{%url 'profile' project.profile.user.id %}">{{project.profile.user.username}}</a>
             </div>
           </div>
         </div>

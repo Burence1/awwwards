@@ -4,6 +4,7 @@
     <form action="{% url 'login' %}" method="post" novalidate>
       {% csrf_token%} {{ form}}
       <button type="submit" class="btn"> Log In</button>
+      <input type="hidden" name="next" value="{% url 'home'%}">
     </form>
   </div>
   <a href="" class="D-block mx-auto mb-3">Forgot password? </a>
