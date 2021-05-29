@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.http.response import Http404
 from django.shortcuts import redirect, render
-from .forms import SignupForm,AddProjectForm
+from .forms import SignupForm,AddProjectForm,RatingForm
 from django.contrib.auth import login, authenticate
 from .models import Profile,Projects,Ratings
 from django.core.exceptions import ObjectDoesNotExist
@@ -56,3 +56,14 @@ def new_project(request):
   else:
     form=AddProjectForm()
   return render(request,'new_project.html',{"form":form})
+
+def search_project(request):
+  if "project" in request.GET and request.GET["project"]:
+    search=request.GET.get("project")
+    rated=False
+    try:
+      project=Projects.search_project(search)
+      stats=project.count()
+      if len(project)==1:
+        project=project[0]
+        form = Rat

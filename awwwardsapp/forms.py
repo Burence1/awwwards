@@ -16,4 +16,9 @@ class SignupForm(UserCreationForm):
 class AddProjectForm(ModelForm):
   class Meta:
     model = Projects
-    fields = ['name','description','project_image','urls','']
+    fields = ['name','description','project_image','urls']
+
+class RatingForm(ModelForm):
+  class Meta:
+    mode = Ratings
+    fields = ['design','usability','content']
