@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.core.checks import messages
-from django.http.response import Http404
+from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from .forms import SignupForm,AddProjectForm,RatingForm
 from django.contrib.auth import login, authenticate
@@ -116,4 +116,20 @@ def project(request,project_id):
 
       project_ratings=Ratings.objects.get(project)
 
-      
+      content_rating=[i.content for i in project_ratings]
+      content_average=sum(content_rating)/len(content_rating)
+
+      design_rating = [i.design for i in project_ratings]
+      design_average=sum(design_rating)/len(design_rating)
+
+      usability_rating = [i.usability for i in project_ratings]
+      usability_average = sum(usability_rating)/len(usability_rating) 
+
+      average_rating=(content_average + usability_average + design_average)/3  
+
+      new_rating.content_average=round(content_average,2)
+      new_rating.design_average=round(design_average,2)
+      new_rating.usability_average=round(usability_average,2)
+      new_rating.average_rating=round(average_rating,2)
+      new_rating.save_rating()
+      return render(request,'project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
