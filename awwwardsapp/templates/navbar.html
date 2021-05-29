@@ -1,4 +1,4 @@
-<!-- <header class="cd-header">
+<header class="cd-header">
   <div class="header-wrapper">
     <div class="logo-wrap">
       <a href="/">a<span>WWW</span>ards.</a>
@@ -8,7 +8,7 @@
         <h1>menu</h1>
         <ul>
           <li><a href="/">home</a></li>
-          <li><a href="/profile/{{request.user.id}}">my profile</a></li>
+          <li><a href="{%url 'profile' request.user.id %}">my profile</a></li>
           <li><a href="/new_project">add a project</a></li>
           <li><a href="/logout">logout</a></li>
           <form class="navbar-form" role="search" , action="{% url 'search' %}">
@@ -44,4 +44,4 @@
       </div>
     </div>
   </div>
-</header> -->
+</header>

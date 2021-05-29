@@ -74,8 +74,9 @@ def search_project(request):
         single_project=project[0]
         form = RatingForm()
         project_votes=Ratings.project_votes(single_project.id)
-        project_voters=single_project.voters
-        voters_list=[i.voters for i in project_voters]
+        project_voters=single_project
+        voters_lists=Ratings.project_voters(single_project.id)
+        voters_list=[i.voters for i in voters_lists]
 
         for vote in project_votes:
           current_user=request.user

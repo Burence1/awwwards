@@ -18,7 +18,7 @@ class AddProjectForm(ModelForm):
 
 class RatingForm(ModelForm):
   class Meta:
-    mode = Ratings
+    model = Ratings
     fields = ['design','usability','content']
 
 class UpdateUserForm(ModelForm):
