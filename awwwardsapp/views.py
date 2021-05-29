@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate
+from django.core.checks import messages
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from .forms import SignupForm,AddProjectForm,RatingForm
@@ -63,7 +64,32 @@ def search_project(request):
     rated=False
     try:
       project=Projects.search_project(search)
-      stats=project.count()
       if len(project)==1:
-        project=project[0]
-        form = Rat
+        single_project=project[0]
+        form = RatingForm()
+        project_votes=Ratings.project_votes(single_project.id)
+        project_voters=single_project.voters
+
+        for vote in project_votes:
+          current_user=request.user
+          try:
+            user=User.objects.get(pk=current_user.id)
+            profile=Profile.objects.get(user=user)
+            voters=Ratings.project_voters(profile)
+            rated=False
+            if current_user.id in voters:
+              rated=True
+          except Profile.DoesNotExist:
+            rated=False
+        return render(request,'search.html',{"form":form,"single_project":single_project,"rated":rated,"project_votes":project_votes,"project_voters":project_voters})
+      elif len(project) >= 2:
+        stats=project.count()
+        return render(request,"all_search.html",{"stats":stats,"project":project})
+    except Projects.DoesNotExist:
+      all_projects=Projects.get_all_projects()
+      message = f"{search} Does not exist"
+      return render(request,"all_search.html",{"message":message,"all_projects":all_projects})
+
+  else:
+    message="No search made"
+    return render(request,"search.html",{"message":message})
