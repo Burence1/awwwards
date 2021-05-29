@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'awwwardsapp.apps.AwwwardsappConfig',
     'cloudinary',
     'bootstrap5',
+    'crispy_forms',
 ]
 
 cloudinary.config(

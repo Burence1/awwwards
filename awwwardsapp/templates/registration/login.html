@@ -1,0 +1,18 @@
+{%extends "base.html"%}{% block content %} {% load static %} {% load bootstrap5 %}
+<div class="card mb-4 ">
+  <div class="card-body loginForm">
+    <form action="{% url 'login' %}" method="post" novalidate>
+      {% csrf_token%} {{ form}}
+      <button type="submit" class="btn"> Log In</button>
+    </form>
+  </div>
+  <a href="" class="D-block mx-auto mb-3">Forgot password? </a>
+</div>
+<div class="card mt-2">
+  <div class="card-body mt-3 mb-3">
+    <p class="text-center">
+      Don't have an account? <a href="{% url 'signup' %}">Sign up</a>
+    </p>
+  </div>
+</div>
+{%endblock%}

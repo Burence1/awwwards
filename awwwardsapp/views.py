@@ -25,7 +25,7 @@ def index(request):
     best_rating=project_ratings[0]
     ratings=Ratings.project_votes(best_rating.id)
     best_votes=ratings[:3]
-  return render(request,'index.html',{"date":date,"highest_vote":best_votes,"ratings":ratings,"projects":projects})
+  return render(request,'index.html',{"date":date,"highest_vote":best_votes,"projects":projects,"highest_rating":best_rating})
 
 def signup(request):
   if request.method =='POST':
