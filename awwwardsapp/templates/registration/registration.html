@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-body mb-3 mr-3 ml-3 signupForm">
       <form action="{% url 'signup' %}" method="post" novalidate>
-        {% csrf_token%} {{ form}}
+        {% csrf_token%} {{form}}
         <button type="submit" class="btn btn-primary btn-sm"> Sign up</button>
       </form>
       <p class="text-center text-muted">By signing up, you agree to our <strong>Terms</strong> ,
