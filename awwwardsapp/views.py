@@ -9,6 +9,7 @@ from django.contrib.auth import login, authenticate
 from .models import Profile,Projects,Ratings
 from django.core.exceptions import ObjectDoesNotExist
 import datetime as dt
+from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -27,7 +28,7 @@ def index(request):
     best_rating=project_ratings[0]
     ratings=Ratings.project_votes(best_rating.id)
     best_votes=ratings[:3]
-  return render(request,'index.html',{"date":date,"highest_vote":best_votes,"projects":projects,"highest_rating":best_rating})
+  return render(request,'index.html',{"date":date,"highest_vote":best_votes,"projects":projects,"highest_rating":best_rating,"ratings":ratings})
 
 
 def signup(request):
@@ -108,6 +109,7 @@ def project(request,project_id):
   ratings=Ratings.project_votes(project.id)
   rating_stats=ratings.count()
   current_user=request.user
+  profile = Profile.objects.get(user=current_user)
   rating_status=None
   if rating_status is None:
     rating_status = False
@@ -118,11 +120,11 @@ def project(request,project_id):
     form = RatingForm(request.POST)
     if form.is_valid():
       new_rating =form.save(commit=False)
-      new_rating.rater=current_user
+      new_rating.rater=profile
       new_rating.projects=project
       new_rating.save_rating()
 
-      project_ratings=Ratings.objects.get(project)
+      project_ratings=Ratings.objects.filter(projects=project)
 
       content_rating=[i.content for i in project_ratings]
       content_average=sum(content_rating)/len(content_rating)
@@ -141,6 +143,11 @@ def project(request,project_id):
       new_rating.average_rating=round(average_rating,2)
       new_rating.save_rating()
       return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
+  else:
+      form = RatingForm()
+  return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
+  # return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
+
 
 @login_required
 def profile(request,profile_id):

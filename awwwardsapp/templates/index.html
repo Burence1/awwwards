@@ -16,12 +16,14 @@
     <a href="{%url 'project' highest_rating.id%}">{{highest_rating.name}}</a>
     <div class="developer">BY <a
         href="{% url 'profile' highest_rating.profile.user.id %}">BY {{highest_rating.profile.user.username}}</a>FROM
-      {{highest_rating.profile.location}} WITH {{highest_rating.average_rating}}</div>
+      {{highest_rating.profile.location}} WITH{%for highest_rating in ratings%} {{highest_rating.average_rating}}{%endfor%}</div>
     <div class="d-flex">
-      <div id="average">{{highest_rating.ratings.average_rating | floatformat:0}}<span>average</span></div>
-      <div class="design">{{highest_rating.ratings.design_average | floatformat:0}}<span>design</span></div>
-      <div class="usability">{{highest_rating.ratings.usability_average | floatformat:0}}<span>usability</span></div>
-      <div class="content">{{highest_rating.ratings.content_average | floatformat:0}}<span>content</span></div>
+      {%for highest_rating in ratings%}
+      <div id="average">{{highest_rating.average_rating}}<span>average</span></div>
+      <div class="design">{{highest_rating.design_average}}<span>design</span></div>
+      <div class="usability">{{highest_rating.usability_average}}<span>usability</span></div>
+      <div class="content">{{highest_rating.content_average}}<span>content</span></div>
+      {%endfor%}
     </div>
   </div>
   <div class="voters_details">
@@ -46,7 +48,7 @@
       </div>
       <div class="cardbody">
         <div class="card__share">
-          <a id="share" class="share-icon" href="{{project.url}}" target="_blank"><i class="fas fa-share"></i></a>
+          <a id="share" class="share-icon" href="{{project.urls}}" target="_blank"><i class="fas fa-share"></i></a>
         </div>
         <div class="card__meta">
           {%if project.average_rating != 0.0 %}
