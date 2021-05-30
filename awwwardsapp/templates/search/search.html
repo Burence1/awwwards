@@ -7,7 +7,7 @@
     <div class="col-md-12">
       <div class="jumbotron" style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{{project.project_image.url}}');">
         <div class="image">
-          <div class="title text-center"><a href="{{project.link}}" target="_blank" style="font-size: xx-large;color: whitesmoke;"><strong>
+          <div class="title text-center"><a href="{{project.urls}}" target="_blank" style="font-size: xx-large;color: whitesmoke;"><strong>
                 {{project.name}}</strong>&nbsp;<sup><i class="fas fa-share" style="font-size: 1.9rem;"></i></sup></a></div>
           <div class="owner text-center">BY <span><a href="{% url 'profile' project.profile.user.id %}"
                 style="text-transform: capitalize;color: #00bdaa;">{{project.profile.user.username}}</a></span> FROM

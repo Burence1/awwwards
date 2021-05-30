@@ -101,3 +101,13 @@
 .content-vote, .design-vote, .usability-vote{
     font-size: 2rem;
 }
+
+.profile-image{
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
+
+#projects{
+    display: flex;
+    flex-direction: row;
+}

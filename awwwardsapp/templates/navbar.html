@@ -11,15 +11,8 @@
     <!-- Collapsible wrapper -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Navbar brand -->
-      <div class="logo-wrap">
-        <a class="nav-link" href="/" style="color: black;"><strong>awwwards.</strong></a>
-      </div>
       <!-- Left links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="/">home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{%url 'profile' request.user.id %}">my profile</a></li>
-        <li class="nav-item"><a class="nav-link" href="/new_project">add a project</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
         <form class="navbar-form" role="search" , action="{% url 'search' %}">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search project" name="project">
@@ -29,29 +22,41 @@
           </div>
         </form>
       </ul>
+      <div class="logo-wrap" style="margin-left: auto; margin-right: auto;">
+        <a class="nav-link" href="/" style="color: black;"><strong>awwwards.</strong></a>
+      </div>
       <!-- Left links -->
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document" style="position: fixed;top: 8%;right: 13%;">
+        <div class="modal-content" style="width: 180%;">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-left">
+            <ul style="list-style: none;">
+              <li><a href="{%url 'profile' request.user.id %}" style="color: black;"><strong><i class="fa fa-user-circle"
+                      aria-hidden="true" style="color: black; margin-right: 1em;"></i>My Profile</strong></a></li>
+              <li><a href="/new_project" style="color: black;"><strong><i class="fa fa-upload" aria-hidden="true"
+                      style="color: black; margin-right: 1em;"></i>Submit Project </strong></a></li>
+              <li><a href="/logout" style="color: black;"><strong><i class="bi bi-box-arrow-right"
+                      style="color: black; margin-right: 1em;"></i>Logout</strong></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Collapsible wrapper -->
 
     <!-- Right elements -->
+    <!-- Avatar -->
     <div class="d-flex align-items-center">
-      <!-- Avatar -->
-      <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink"
-        role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+      <a href="#" data-toggle="modal" data-target="#myModal">
         <img src="https://mdbootstrap.com/img/new/avatars/2.jpg" class="rounded-circle" height="25" alt=""
           loading="lazy" />
       </a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-        <li>
-          <a class="dropdown-item" href="#">My profile</a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">Settings</a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">Logout</a>
-        </li>
-      </ul>
     </div>
     <!-- Right elements -->
   </div>

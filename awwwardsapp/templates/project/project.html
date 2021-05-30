@@ -5,10 +5,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <div class="jumbotron" style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{{project.project_image.url}}');">
+      <div class="jumbotron"
+        style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{{project.project_image.url}}');">
         <div class="image">
-          <div class="title text-center"><a href="{{project.link}}" target="_blank" style="font-size: xx-large;color: whitesmoke;"><strong>
-                {{project.name}}</strong>&nbsp;<sup><i class="fas fa-share" style="font-size: 1.9rem;"></i></sup></a></div>
+          <div class="title text-center"><a href="{{project.urls}}" target="_blank"
+              style="font-size: xx-large;color: whitesmoke;"><strong>
+                {{project.name}}</strong>&nbsp;<sup><i class="fas fa-share" style="font-size: 1.9rem;"></i></sup></a>
+          </div>
           <div class="owner text-center">BY <span><a href="{% url 'profile' project.profile.user.id %}"
                 style="text-transform: capitalize;color: #00bdaa;">{{project.profile.user.username}}</a></span> FROM
             {{project.profile.location}}</div><br>
@@ -16,9 +19,43 @@
             {%for project in ratings%}
             <div id="average"><strong>{{project.average_rating}}</strong><span><strong>average</strong></span></div>
             <div class="design"><strong>{{project.design_average}}</strong><span><strong>design</strong></span></div>
-            <div class="usability"><strong>{{project.usability_average}}</strong><span><strong>usability</strong></span></div>
+            <div class="usability"><strong>{{project.usability_average}}</strong><span><strong>usability</strong></span>
+            </div>
             <div class="content"><strong>{{project.content_average}}</strong><span><strong>content</strong></span></div>
             {%endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <a href="#" data-toggle="modal" data-target="#Modal">
+        <h2>Rate This Project</h2>
+      </a>
+      <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document" style="margin-right: auto;margin-left: auto;">
+          <div class="modal-content" style="width: 180%;">
+            <div class="modal-header">
+              <h3>Rating Form</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              {% if rated %}
+              <h5>You have already voted</h5>
+              {% else %}
+              {% if user.is_authenticated %}
+              <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type="submit" class="btn btn-sm btn-info">Rate</button>
+              </form>
+              {% endif %}
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
@@ -28,19 +65,6 @@
     <div class="col-md-12">
       <div class="description text-center"><strong> {{project.description}}</strong></div>
       <hr>
-      <div class="card shadow p-3 mb-5 bg-white rounded card quote-card">
-      {% if rated %}
-      <h5>You have already voted</h5>
-      {% else %}
-      {% if user.is_authenticated %}
-      <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form|crispy}}
-        <button type="submit" class="btn btn-sm btn-info">Rate</button>
-      </form>
-      {% endif %}
-      {% endif %}
-      </div>
     </div>
   </div>
   <div class="row">

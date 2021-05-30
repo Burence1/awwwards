@@ -21,7 +21,7 @@ def index(request):
     projects=Projects.get_all_projects()
   except Projects.DoesNotExist:
     raise Http404()
-  project_ratings=projects.order_by('-ratings__average_rating')
+  project_ratings=projects.order_by('-ratings__average_rating, average_rating')
   best_rating=None
   best_votes=None
   if len(project_ratings)>=1:

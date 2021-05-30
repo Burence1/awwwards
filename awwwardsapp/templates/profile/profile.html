@@ -7,16 +7,16 @@
       <div class="profile-image text-center">
         <img src="{{profile.profile_pic.url}}" class="rounded-circle" alt="profile_image" style="height: 4em;width: 4em;">
         <div class="profile_name">
-          <a href="{{profile.link}}" target="_blank">{{profile.user.username}}</p></a>
+          <a href="{{profile.url}}" target="_blank" style="text-transform: capitalize; color: black;"> {{profile.user.username}}</p></a>
         </div>
         <div class="profile_location">
-          <p class="text-muted">{{profile.location}}</p>
+          <p class="text-muted"><i class="bi bi-geo-alt"></i> {{profile.location}}</p>
         </div>
         <div class="profile_bio">
           <p>{{profile.bio}}</p>
         </div>
         <div class="profile_image">
-          <p>{{profile.email}}</p>
+          <p><i class="bi bi-envelope"></i> {{profile.email}}</p>
         </div>
       </div>
     </div>
@@ -26,16 +26,16 @@
       <hr>
       <div class="count">
         {%if projects_stats == 1 %}
-        <div class="projects">{{projects_stats}} Project</div>
+        <div class="projects text-center"><strong>{{projects_stats}} Project</strong></div>
         {%else%}
-        <div class="projects">{{projects_stats}} Projects</div>
+        <div class="projects text-center"><strong>{{projects_stats}} Projects</strong></div>
         {%endif%}
       </div>
     </div>
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12" id="projects">
         {%for project in profile_projects%}
         <div class="col-md-4">
           <div class="card shadow p-3 mb-5 bg-white rounded card quote-card">

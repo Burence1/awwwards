@@ -3,12 +3,12 @@
 {%block content%}
 <div class="row">
   <div class="col-md-12">
-    {%if projects%}
+    {%if project%}
     <div class="search-title">
       Found {{stats}} projects titled
     </div>
-    <div class="container">
-      {%for project in projects%}
+    <div class="container d-flex">
+      {%for project in project%}
       <div class="col-md-4">
         <div class="card shadow p-3 mb-5 bg-white rounded card quote-card">
           <div class="card__image border-tlr-radius">
@@ -20,9 +20,9 @@
               <a id="share" class="share-icon" href="{{project.urls}}" target="_blank"><i class="fas fa-share"></i></a>
             </div>
             <div class="card__meta">
-              {%if project.average_rating != 0.0 %}
-              <a href="#">{{project.average_rating | floatformat:0}}</a>
+              {%if project.average_rating == 0.0 %}
               {%else%}
+              <a href="#">{{project.ratings.average_rating | floatformat:0}}</a>
               {% endif %}
               <time>{{project.pub_date}}</time>
             </div>
