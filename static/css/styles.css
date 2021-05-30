@@ -1,0 +1,103 @@
+#nav{
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  box-shadow: 0 0 1.8rem rgba(0, 0, 0, .15);
+}
+
+#average{
+    width: 6rem;
+    height: 6rem;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 4px solid goldenrod;
+    border-radius: 50%;
+    margin: 2rem;
+}
+
+.design{
+    width: 6rem;
+    height: 6rem;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 4px solid maroon;
+    border-radius: 50%;
+    margin: 2rem;
+}
+
+.usability{
+    width: 6rem;
+    height: 6rem;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 4px solid blue;
+    border-radius: 50%;
+    margin: 2rem;
+}
+
+.content{
+    width: 6rem;
+    height: 6rem;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 4px solid green;
+    border-radius: 50%;
+    margin: 2rem;
+}
+
+.d-flex{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.d-flex span{
+    font-size: 1.4rem;
+    padding-top: 2.5rem;
+}
+
+#highest_name{
+    margin-left: auto;
+    margin-right: auto;
+    color: whitesmoke;
+    font-size: 3em;
+}
+
+#Votes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding: 0 20%;
+}
+.vote-details, .vote-titles{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    padding-bottom: 3rem;
+}
+
+.vote-title{
+    font-size:1.4rem ;
+    margin-right: -4rem;
+}
+.voter-name{
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.voter-name, .content-vote, .design-vote, .usability-vote{
+    align-self: center;
+}
+.content-vote, .design-vote, .usability-vote{
+    font-size: 2rem;
+}

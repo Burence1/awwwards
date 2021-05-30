@@ -6,18 +6,17 @@
 {% endblock %}
 {% block content %}
 {% if highest_rating %}
-<div class="jumbotron" style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{highest_rating.project_image.url}}');">
+<div class="jumbotron" style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{{highest_rating.project_image.url}}');">
   <div class="of-the-day-wrapper-top">
-    <label>
-      Site of the day <span>{{date}}</span>
+    <label><strong>Site of the day <span>{{date}}</span></strong>
     </label>
   </div>
-  <div class="highest_details">
-    <a href="{%url 'project' highest_rating.id%}">{{highest_rating.name}}</a>
+  <div class="highest_details text-center">
+    <a href="{%url 'project' highest_rating.id%}" id="highest_name"><strong>{{highest_rating.name}}</strong></a>
     <div class="developer">BY <a
-        href="{% url 'profile' highest_rating.profile.user.id %}">BY {{highest_rating.profile.user.username}}</a>FROM
-      {{highest_rating.profile.location}} WITH{%for highest_rating in ratings%} {{highest_rating.average_rating}}{%endfor%}</div>
-    <div class="d-flex">
+        href="{% url 'profile' highest_rating.profile.user.id %}" style="text-transform: capitalize; color: #00bdaa;">{{highest_rating.profile.user.username}}</a> FROM
+      {{highest_rating.profile.location}} WITH{%for highest_rating in ratings%}<strong> {{highest_rating.average_rating}}</strong>{%endfor%}</div>
+    <div class="d-flex" style="list-style: none;">
       {%for highest_rating in ratings%}
       <div id="average">{{highest_rating.average_rating}}<span>average</span></div>
       <div class="design">{{highest_rating.design_average}}<span>design</span></div>
@@ -34,8 +33,9 @@
   </div>
 </div>
 {%endif%}
-<div class="text-left divider">
-  <span> Vote for your favorite sites</span>
+<div class="text-center divider">
+  <span><strong> Vote for your favorite sites</strong></span>
+  <strong><hr></strong>
 </div>
 {% if projects %}
 <div class="container">

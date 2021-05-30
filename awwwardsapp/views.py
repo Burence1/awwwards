@@ -77,7 +77,8 @@ def search_project(request):
         project_votes=Ratings.project_votes(single_project.id)
         project_voters=single_project
         voters_lists=Ratings.project_voters(single_project.id)
-        voters_list=[i.voters for i in voters_lists]
+        ratings = Ratings.project_votes(single_project.id)
+        voters_list=[i.rater for i in voters_lists]
 
         for vote in project_votes:
           current_user=request.user
@@ -90,7 +91,7 @@ def search_project(request):
               rated=True
           except Profile.DoesNotExist:
             rated=False
-        return render(request,'search/search.html',{"form":form,"single_project":single_project,"rated":rated,"project_votes":project_votes,"project_voters":project_voters})
+        return render(request,'search/search.html',{"ratings":ratings,"form":form,"project":single_project,"rating_status":rated,"project_votes":project_votes,"project_voters":project_voters,"voters":voters})
       elif len(project) >= 2:
         stats=project.count()
         return render(request,"search/all_search.html",{"stats":stats,"project":project})
