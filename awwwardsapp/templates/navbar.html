@@ -37,8 +37,10 @@
           </div>
           <div class="modal-body text-left">
             <ul style="list-style: none;">
+              {% if user.is_authenticated %}
               <li><a href="{%url 'profile' request.user.id %}" style="color: black;"><strong><i class="fa fa-user-circle"
                       aria-hidden="true" style="color: black; margin-right: 1em;"></i>My Profile</strong></a></li>
+              {%endif%}
               <li><a href="/new_project" style="color: black;"><strong><i class="fa fa-upload" aria-hidden="true"
                       style="color: black; margin-right: 1em;"></i>Submit Project </strong></a></li>
               <li><a href="/logout" style="color: black;"><strong><i class="bi bi-box-arrow-right"
@@ -74,7 +76,7 @@
         <h1>menu</h1>
         <ul>
           <li><a href="/">home</a></li>
-          <li><a href="{%url 'profile' request.user.id %}">my profile</a></li>
+
           <li><a href="/new_project">add a project</a></li>
           <li><a href="/logout">logout</a></li>
           <form class="navbar-form" role="search" , action="{% url 'search' %}">

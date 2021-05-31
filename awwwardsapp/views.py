@@ -14,21 +14,21 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-# @login_required
+@login_required
 def index(request):
   date=dt.date.today()
   try:
     projects=Projects.get_all_projects()
   except Projects.DoesNotExist:
     raise Http404()
-  project_ratings=projects.order_by('-ratings__average_rating, average_rating')
+  project_ratings=projects.order_by('-ratings__average_rating')
   best_rating=None
   best_votes=None
   if len(project_ratings)>=1:
     best_rating=project_ratings[0]
     ratings=Ratings.project_votes(best_rating.id)
     best_votes=ratings[:3]
-  return render(request,'index.html',{"date":date,"highest_vote":best_votes,"projects":projects,"highest_rating":best_rating,"ratings":ratings})
+  return render(request,'index.html',{"date":date,"highest_vote":best_votes,"projects":projects,"highest_rating":best_rating})
 
 
 def signup(request):
@@ -144,6 +144,7 @@ def project(request,project_id):
       new_rating.usability_average=round(usability_average,2)
       new_rating.average_rating=round(average_rating,2)
       new_rating.save_rating()
+      # return HttpResponseRedirect(request.path_info)
       return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rated":rating_status})
   else:
       form = RatingForm()
@@ -158,13 +159,15 @@ def profile(request,profile_id):
     profile=Profile.objects.get(user=user)
     profile_projects=Projects.user_projects(profile)
     projects_stats=profile_projects.count()
-    project_ratings = Ratings.objects.filter(projects=profile_projects[0])
-    votes=[i.average_rating for i in project_ratings]
-    total_ratings=sum(votes)
-    average=total_ratings/len(profile_projects)
+    project_ratings = Ratings.objects.filter(projects=profile_projects.first())
+    if len(project_ratings) >= 1:
+      votes=[i.average_rating for i in project_ratings]
+      total_ratings=sum(votes)
+      average=total_ratings/len(profile_projects)
+      return render(request,'profile/profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
   except Profile.DoesNotExist:
     raise Http404()
-  return render(request,'profile/profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
+  return render(request,'profile/profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats})
 
 @login_required
 def update_profile(request,profile_id):

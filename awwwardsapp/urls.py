@@ -10,9 +10,9 @@ urlpatterns=[
   path('new_project/',views.new_project,name='new_project'),
   path('search/',views.search_project,name='search'),
   path('project/<int:project_id>/',views.project,name='project'),
-  path('profile/(?P<profile_id>\d+)', views.profile, name='profile'),
-  # path('profile/<int:profile_id>/',views.profile,name='profile'),
-  path('update_profile/(?P<profile_id>\d+)',views.update_profile,name='update_profile')
+  # path('profile/(?P<profile_id>\d+)', views.profile, name='profile'),
+  path('profile/<int:profile_id>/',views.profile,name='profile'),
+  re_path('update_profile/(?P<profile_id>\d+)',views.update_profile,name='update_profile')
 ]
 
 if settings.DEBUG:

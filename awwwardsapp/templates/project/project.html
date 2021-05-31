@@ -16,13 +16,15 @@
                 style="text-transform: capitalize;color: #00bdaa;">{{project.profile.user.username}}</a></span> FROM
             {{project.profile.location}}</div><br>
           <div class="d-flex">
-            {%for project in ratings%}
-            <div id="average"><strong>{{project.average_rating}}</strong><span><strong>average</strong></span></div>
-            <div class="design"><strong>{{project.design_average}}</strong><span><strong>design</strong></span></div>
-            <div class="usability"><strong>{{project.usability_average}}</strong><span><strong>usability</strong></span>
+            {% for rating in project.ratings.all %}
+            {% if forloop.counter is project.ratings.all.count %}
+            <div id="average"><strong>{{rating.average_rating}}</strong><span><strong>average</strong></span></div>
+            <div class="design"><strong>{{rating.design_average}}</strong><span><strong>design</strong></span></div>
+            <div class="usability"><strong>{{rating.usability_average}}</strong><span><strong>usability</strong></span>
             </div>
-            <div class="content"><strong>{{project.content_average}}</strong><span><strong>content</strong></span></div>
-            {%endfor%}
+            <div class="content"><strong>{{rating.content_average}}</strong><span><strong>content</strong></span></div>
+            {% endif %}
+            {% endfor %}
           </div>
         </div>
       </div>

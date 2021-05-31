@@ -17,11 +17,13 @@
         href="{% url 'profile' highest_rating.profile.user.id %}" style="text-transform: capitalize; color: #00bdaa;">{{highest_rating.profile.user.username}}</a> FROM
       {{highest_rating.profile.location}} WITH{%for highest_rating in ratings%}<strong> {{highest_rating.average_rating}}</strong>{%endfor%}</div>
     <div class="d-flex" style="list-style: none;">
-      {%for highest_rating in ratings%}
-      <div id="average">{{highest_rating.average_rating}}<span>average</span></div>
-      <div class="design">{{highest_rating.design_average}}<span>design</span></div>
-      <div class="usability">{{highest_rating.usability_average}}<span>usability</span></div>
-      <div class="content">{{highest_rating.content_average}}<span>content</span></div>
+      {% for rating in highest_rating.ratings.all %}
+      {% if forloop.counter is highest_rating.ratings.all.count %}
+      <div id="average">{{rating.average_rating}}<span>average</span></div>
+      <div class="design">{{rating.design_average}}<span>design</span></div>
+      <div class="usability">{{rating.usability_average}}<span>usability</span></div>
+      <div class="content">{{rating.content_average}}<span>content</span></div>
+      {%endif%}
       {%endfor%}
     </div>
   </div>
