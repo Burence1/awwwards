@@ -7,14 +7,9 @@
 {% block content %}
 {% if highest_rating %}
 <div class="jumbotron"
-  style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{{highest_rating.project_image.url}}');">
+  style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{{highest_rating.project_image.url}}');height: 25em;">
   <div class="of-the-day-wrapper-top">
     <label><strong>Site of the day <span>{{date}}</span></strong>
-    </label>
-  </div>
-  <div class="wrapper-top" style="float: right;">
-    <label><strong><a href="{{highest_rating.urls}}" target="_blank"><i class="fa fa-share-alt" aria-hidden="true"
-            style="size: 2.9rem; color: #00bdaa;"></i></a></strong>
     </label>
   </div>
   <div class="highest_details text-center">
@@ -48,9 +43,9 @@
             style="width: 100%;" class="border-tlr-radius"></a>
       </div>
       <div class="cardbody">
-        <div class="card__share">
+        <!-- <div class="card__share">
           <a id="share" class="share-icon" href="{{project.urls}}" target="_blank"><i class="fas fa-share"></i></a>
-        </div>
+        </div> -->
         <div class="card__meta">
           {%if project.average_rating != 0.0 %}
           <a href="#">{{project.average_rating | floatformat:0}}</a>
@@ -68,7 +63,9 @@
             <img src="{{project.profile.profile_pic.url}}" class="rounded-circle" alt="user">
             <div class="card__author-content">
               By <a href="{%url 'profile' project.profile.user.id %}"
-                style="color: #00bdaa;text-transform: capitalize;"><i> {{project.profile.user.username}}</i></a>
+                style="color: #00bdaa;text-transform: capitalize; color: black;text-decoration: none;"><i> {{project.profile.user.username}}</i></a>
+                <a id="share" class="share-icon" href="{{project.urls}}" target="_blank" style="float: right;color: black;"><i
+                    class="fa fa-share-alt" aria-hidden="true"></i></a>
             </div>
           </div>
         </div>

@@ -1,3 +1,7 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
 #nav{
   transition: all 0.4s ease-in-out;
   -webkit-transition: all 0.4s ease-in-out;
@@ -124,3 +128,38 @@
     font-weight: 900;
     color: #fff;
 }
+
+#voting {
+    background-color: #00bdaa;
+    
+    text-transform: uppercase;
+  
+    font-weight: 900;
+    color: #fff;
+}
+
+#raters{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.btn-grad {background-image: linear-gradient(to right, #314755 0%, #26a0da  51%, #314755  100%)}
+.btn-grad {
+margin: 10px;
+padding: 5px 15px;
+text-align: center;
+text-transform: uppercase;
+transition: 0.5s;
+background-size: 200% auto;
+color: white;            
+box-shadow: 0 0 20px #eee;
+border-radius: 20px;
+display: block;
+}
+
+.btn-grad:hover {
+background-position: right center; /* change the direction of the change here */
+color: #fff;
+text-decoration: none;
+}
+         
