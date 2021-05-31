@@ -12,6 +12,8 @@ import datetime as dt
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+import statistics
+from django.urls import reverse
 
 # Create your views here.
 @login_required
@@ -27,7 +29,6 @@ def index(request):
   if len(project_ratings)>=1:
     best_rating=project_ratings[0]
     ratings=Ratings.project_votes(best_rating.id)
-    best_votes=ratings[:3]
   return render(request,'index.html',{"date":date,"highest_vote":best_votes,"projects":projects,"highest_rating":best_rating})
 
 
@@ -91,7 +92,7 @@ def search_project(request):
               rated=True
           except Profile.DoesNotExist:
             rated=False
-        return render(request,'search/search.html',{"ratings":ratings,"form":form,"project":single_project,"rating_status":rated,"project_votes":project_votes,"project_voters":project_voters,"voters":voters})
+        return render(request,'search/search.html',{"projects":project,"ratings":ratings,"form":form,"project":single_project,"rating_status":rated,"project_votes":project_votes,"project_voters":project_voters,"voters":voters})
       elif len(project) >= 2:
         stats=project.count()
         return render(request,"search/all_search.html",{"stats":stats,"project":project})
@@ -104,52 +105,50 @@ def search_project(request):
     message="No search made"
     return render(request,"search/search.html",{"message":message})
 
-@login_required
-def project(request,project_id):
-  project=Projects.objects.get(pk=project_id)
-  ratings=Ratings.project_votes(project.id)
-  rating_stats=ratings.count()
-  current_user=request.user
-  profile = Profile.objects.get(user=current_user)
-  user_ratings = Ratings.objects.filter(rater=profile, projects=project).first()
-  rating_status=None
-  if user_ratings is None:
-    rating_status = False
-  else:
-    rating_status = True
+# @login_required
+# def project(request,name):
+#   project=Projects.objects.get(name=name)
+  # ratings=Ratings.project_votes(project.id)
+  # rating_stats=ratings.count()
+  # current_user=request.user
+  # profile = Profile.objects.get(user=current_user)
+  # ratings = Ratings.objects.filter(rater=request.user, projects=project).first()
+  # rating_status=None
+  # if ratings is None:
+  #   rating_status = False
+  # else:
+  #   rating_status = True
+  # if request.method == 'POST':
+  #   form = RatingForm(request.POST)
+  #   if form.is_valid():
+  #     rate =form.save(commit=False)
+  #     rate.rater=request.user
+  #     rate.projects=project
+  #     rate.save()
+  #     project_ratings=Ratings.objects.filter(projects=project)
 
-  if request.method == 'POST':
-    form = RatingForm(request.POST)
-    if form.is_valid():
-      new_rating =form.save(commit=False)
-      new_rating.rater=profile
-      new_rating.projects=project
-      new_rating.save_rating()
+  #     content_rating=[c.content for c in project_ratings]
+  #     content_average=sum(content_rating) / len(content_rating)
 
-      project_ratings=Ratings.objects.filter(projects=project)
+  #     design_rating = [d.design for d in project_ratings]
+  #     design_average=sum(design_rating) / len(design_rating)
 
-      content_rating=[i.content for i in project_ratings]
-      content_average=sum(content_rating)/len(content_rating)
+  #     usability_rating = [i.usability for i in project_ratings]
+  #     usability_average = sum(usability_rating) / len(usability_rating) 
 
-      design_rating = [i.design for i in project_ratings]
-      design_average=sum(design_rating)/len(design_rating)
-
-      usability_rating = [i.usability for i in project_ratings]
-      usability_average = sum(usability_rating)/len(usability_rating) 
-
-      average_rating=(content_average + usability_average + design_average)/3  
-
-      new_rating.content_average=round(content_average,2)
-      new_rating.design_average=round(design_average,2)
-      new_rating.usability_average=round(usability_average,2)
-      new_rating.average_rating=round(average_rating,2)
-      new_rating.save_rating()
-      # return HttpResponseRedirect(request.path_info)
-      return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rated":rating_status})
-  else:
-      form = RatingForm()
-  return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rated":rating_status})
-  # return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
+  #     average_rating=(content_average + usability_average + design_average) / 3  
+      
+  #     rate.content_average = round(content_average,2)
+  #     rate.design_average = round(design_average,2)
+  #     rate.usability_average = round(usability_average,2)
+  #     rate.average_rating = round(average_rating,2)
+  #     rate.save()
+  #     # return HttpResponseRedirect(request.path_info)
+  #     return render(request,'project/project.html',{"form":form,"project":project,"rated":rating_status})
+  # else:
+  #     form = RatingForm()
+  # return render(request,'project/project.html',{"form":form,"project":project,"rated":rating_status})
+  # # return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
 
 
 @login_required
@@ -185,3 +184,77 @@ def update_profile(request,profile_id):
     update_profile=UpdateProfile(instance=current_user.profile)
   
   return render(request,"profile/updateprof.html",{"user_form":user_form,"update_profile":update_profile})
+
+
+@login_required
+def project(request, project_id):
+  project = Projects.objects.get(pk=project_id)
+  ratings = Ratings.project_votes(project.id)
+  rating_stats = ratings.count()
+  form = RatingForm()
+  current_user=request.user
+  profile = Profile.objects.get(user=current_user)
+  rating_status = None
+  raters = []
+  project_average = []
+  content_list = []
+  design_list = []
+  usability_list = []
+  for rate in ratings:
+    raters.append(rate.rater.id)
+    sum_average = rate.usability + rate.design + rate.content
+    average = sum_average/3
+    project_average.append(average)
+    content_list.append(rate.content)
+    usability_list.append(rate.usability)
+    design_list.append(rate.design)
+    try:
+      user=User.objects.get(pk=request.user.id)
+      profile=Profile.objects.get(user=user)
+      rater =Ratings.project_voters(profile)
+      rating_status=False
+      if request.user.id in raters:
+        rating_status=True
+    except Profile.DoesNotExist:
+      rating_status=False
+  
+  average_rating=0
+  design_average=0
+  usability_average=0
+  content_average=0
+  if len(project_average) > 0:
+    average_rating=sum(project_average)/len(project_average)
+    project.average_rating=round(average_rating,2)
+    project.save()
+  if rating_stats != 0:
+    usability_average=sum(usability_list)/rating_stats
+    content_average=sum(content_list)/rating_stats
+    design_average=sum(design_list)/rating_stats
+    project.usability_average=round(usability_average,2)
+    project.content_average=round(content_average,2)
+    project.design_average=round(design_average,2)
+    project.save()
+
+  return render(request, 'project/project.html', {"form":form,"project": project, "ratings": ratings, "rating_stats": rating_stats, "rated": rating_status})
+
+
+@login_required
+def rate_project(request, project_id):
+  if request.method == "POST":
+    form = RatingForm(request.POST)
+    project = Projects.objects.get(pk=project_id)
+    current_user = request.user
+    try:
+        user = User.objects.get(pk=current_user.id)
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        raise Http404()
+    if form.is_valid():
+      ratings = form.save(commit=False)
+      ratings.rater = profile
+      ratings.projects = project
+      ratings.save()
+      return HttpResponseRedirect(reverse('project', args=[int(project.id)]))
+  else:
+      form = RatingForm()
+  return render(request, 'project/project.html', {"form": form})

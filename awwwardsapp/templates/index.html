@@ -6,26 +6,22 @@
 {% endblock %}
 {% block content %}
 {% if highest_rating %}
-<div class="jumbotron" style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{{highest_rating.project_image.url}}');">
+<div class="jumbotron"
+  style="color: whitesmoke;background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('{{highest_rating.project_image.url}}');">
   <div class="of-the-day-wrapper-top">
     <label><strong>Site of the day <span>{{date}}</span></strong>
     </label>
   </div>
+  <div class="wrapper-top" style="float: right;">
+    <label><strong><a href="{{highest_rating.urls}}" target="_blank"><i class="fa fa-share-alt" aria-hidden="true"
+            style="size: 2.9rem; color: #00bdaa;"></i></a></strong>
+    </label>
+  </div>
   <div class="highest_details text-center">
-    <a href="{%url 'project' highest_rating.id%}" id="highest_name"><strong>{{highest_rating.name}}</strong></a>
-    <div class="developer">BY <a
-        href="{% url 'profile' highest_rating.profile.user.id %}" style="text-transform: capitalize; color: #00bdaa;">{{highest_rating.profile.user.username}}</a> FROM
-      {{highest_rating.profile.location}} WITH{%for highest_rating in ratings%}<strong> {{highest_rating.average_rating}}</strong>{%endfor%}</div>
-    <div class="d-flex" style="list-style: none;">
-      {% for rating in highest_rating.ratings.all %}
-      {% if forloop.counter is highest_rating.ratings.all.count %}
-      <div id="average">{{rating.average_rating}}<span>average</span></div>
-      <div class="design">{{rating.design_average}}<span>design</span></div>
-      <div class="usability">{{rating.usability_average}}<span>usability</span></div>
-      <div class="content">{{rating.content_average}}<span>content</span></div>
-      {%endif%}
-      {%endfor%}
-    </div>
+    <a href="{%url 'project' highest_rating.id%}" id="highest_name" style="text-decoration: none;"><strong>{{highest_rating.name}}<i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </strong></a>
+    <div class="developer mt-5"><strong> BY <a href="{% url 'profile' highest_rating.profile.user.id %}"
+        style="text-transform: capitalize; color: #00bdaa;">{{highest_rating.profile.user.username}}</a> FROM
+      {{highest_rating.profile.location}}</strong></div>
   </div>
   <div class="voters_details">
     <div class="voters">
@@ -38,7 +34,9 @@
 <div class="text-center divider">
   <h2><strong>All Projects</strong></h2><br>
   <span><strong> Rate your favorite sites</strong></span>
-  <strong><hr></strong>
+  <strong>
+    <hr>
+  </strong>
 </div>
 {% if projects %}
 <div class="container" id="projects">
@@ -46,8 +44,8 @@
   <div class="col-md-4">
     <div class="card shadow p-3 mb-5 bg-white rounded card quote-card">
       <div class="card__image border-tlr-radius">
-        <a href="{% url 'project' project.id %}"><img src="{{project.project_image.url}}" alt="image" style="width: 100%;"
-            class="border-tlr-radius"></a>
+        <a href="{% url 'project' project.id %}"><img src="{{project.project_image.url}}" alt="image"
+            style="width: 100%;" class="border-tlr-radius"></a>
       </div>
       <div class="cardbody">
         <div class="card__share">
@@ -61,14 +59,16 @@
           <time>{{project.pub_date}}</time>
         </div>
         <article class="card__article">
-          <h3><a href="{% url 'project' project.id %}" style="text-transform: capitalize;color: black;"><strong>{{project.name}}</strong></a></h3>
+          <h3><a href="{% url 'project' project.id %}"
+              style="text-transform: capitalize;color: black;"><strong>{{project.name}}</strong></a></h3>
           <p>{{project.description}}</p>
         </article>
         <div class="card__action">
           <div class="card__author text-center">
             <img src="{{project.profile.profile_pic.url}}" class="rounded-circle" alt="user">
             <div class="card__author-content">
-              By <a href="{%url 'profile' project.profile.user.id %}" style="color: #00bdaa;text-transform: capitalize;"><i> {{project.profile.user.username}}</i></a>
+              By <a href="{%url 'profile' project.profile.user.id %}"
+                style="color: #00bdaa;text-transform: capitalize;"><i> {{project.profile.user.username}}</i></a>
             </div>
           </div>
         </div>

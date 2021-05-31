@@ -1,20 +1,35 @@
 {% extends 'base.html' %}{%load crispy_forms_tags%} {% block content %} {% load static %} {% load bootstrap4 %}
-<div class="container mt-4">
-  <div class="card">
-    <div class="card-body mb-3 mr-3 ml-3 signupForm">
-      <form action="{% url 'signup' %}" method="post" novalidate>
-        {% csrf_token%} {{form}}
-        <button type="submit" class="btn btn-primary btn-sm"> Sign up</button>
-      </form>
-      <p class="text-center text-muted">By signing up, you agree to our <strong>Terms</strong> ,
-        <strong>Data Policy</strong>and <strong>Policy </strong> .
-      </p>
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="card shadow p-3 mb-5 rounded card" id="reg"
+        style="width: fit-content; margin-left: auto;margin-right: auto;background-color: transparent;">
+        <div class="cardbody">
+          {% if form.errors %}
+          <p class="danger"> Checkout for possible detail errors </p>
+          {% endif %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="text-center">Sign Up</h3>
+            </div>
+            <div class="panel-body">
+              <form action="{% url 'signup' %}" method="post" novalidate>
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <div class="form-group">
+                  <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
+                </div>
+              </form>
+              <p class="text-center">Have an account? <a href="{% url 'login' %}">Log in</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card mt-2">
-    <div class="card-body mt-3 mb-2">
-      <p class="text-center">Have an account? <a href="{% url 'login' %}">Log in</a></p>
-    </div>
+    <!-- empty div -->
+    <div class="col-md-4"></div>
   </div>
 </div>
 {% endblock %}

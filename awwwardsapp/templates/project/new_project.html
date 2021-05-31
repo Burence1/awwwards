@@ -2,12 +2,9 @@
 {% load static %}
 {% load bootstrap4 %}
 {% block content %}
-<div class="box">
+<div class="box mt-5">
   <div class="text-center">
-    <div class="title">New project</div>
-    <hr>
-    <div class="guide">Add a project by providing the project name, project screenshot, a short description of the
-      project and finally a live link to the site.</div>
+    <div class="guide"><strong>Add a project</strong></div>
   </div>
   <form action="{%url 'new_project'%}" method="post" enctype="multipart/form-data">
     {%csrf_token%}

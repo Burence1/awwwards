@@ -83,7 +83,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    padding-bottom: 3rem;
+    padding-bottom: 0;
 }
 
 .vote-title{
@@ -110,4 +110,17 @@
 #projects{
     display: flex;
     flex-direction: row;
+}
+
+.rounded-circle{
+    margin: 0.5em;
+}
+
+#vote {
+    background-color: #00bdaa;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    padding: 2%;
+    font-weight: 900;
+    color: #fff;
 }
