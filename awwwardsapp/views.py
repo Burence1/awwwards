@@ -111,8 +111,9 @@ def project(request,project_id):
   rating_stats=ratings.count()
   current_user=request.user
   profile = Profile.objects.get(user=current_user)
+  user_ratings = Ratings.objects.filter(rater=profile, projects=project).first()
   rating_status=None
-  if rating_status is None:
+  if user_ratings is None:
     rating_status = False
   else:
     rating_status = True
@@ -143,10 +144,10 @@ def project(request,project_id):
       new_rating.usability_average=round(usability_average,2)
       new_rating.average_rating=round(average_rating,2)
       new_rating.save_rating()
-      return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
+      return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rated":rating_status})
   else:
       form = RatingForm()
-  return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
+  return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rated":rating_status})
   # return render(request,'project/project.html',{"form":form,"project":project,"ratings":ratings,"rating_stats":rating_stats,"rating_status":rating_status})
 
 
@@ -166,8 +167,8 @@ def profile(request,profile_id):
   return render(request,'profile/profile.html',{"profile":profile,"profile_projects":profile_projects,"projects_stats":projects_stats,"ratings":total_ratings,"average":average})
 
 @login_required
-def update_profile(request,username):
-  user=User.objects.get(username=username)
+def update_profile(request,profile_id):
+  user=User.objects.get(pk=profile_id)
   current_user=request.user
   if request.method =='POST':
     user_form=UpdateUserForm(request.POST,instance=current_user)
@@ -175,7 +176,7 @@ def update_profile(request,username):
     if user_form.is_valid and profile_form.is_valid():
       user_form.save()
       profile_form.save()
-      return redirect('profile',user.username)
+      return redirect('profile',user.pk)
   else:
     user_form=UpdateUserForm(instance=current_user)
     update_profile=UpdateProfile(instance=current_user.profile)

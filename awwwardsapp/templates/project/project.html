@@ -30,12 +30,15 @@
   </div>
   <div class="row">
     <div class="col-md-12 text-center">
+      {% if rated %}
+      <h5>You have already voted</h5>
+      {% else %}
       <a href="#" data-toggle="modal" data-target="#Modal">
         <h2>Rate This Project</h2>
       </a>
       <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document" style="margin-right: auto;margin-left: auto;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="margin-right: auto;margin-left: auto;">
           <div class="modal-content" style="width: 180%;">
             <div class="modal-header">
               <h3>Rating Form</h3>
@@ -44,9 +47,7 @@
               </button>
             </div>
             <div class="modal-body text-center">
-              {% if rated %}
-              <h5>You have already voted</h5>
-              {% else %}
+              
               {% if user.is_authenticated %}
               <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -54,11 +55,12 @@
                 <button type="submit" class="btn btn-sm btn-info">Rate</button>
               </form>
               {% endif %}
-              {% endif %}
+              
             </div>
           </div>
         </div>
       </div>
+      {% endif %}
     </div>
   </div>
   <div class="row">
@@ -69,7 +71,7 @@
   </div>
   <div class="row">
     <div class="col-md-12" id="Votes">
-      <h3 class="text-center"><strong>Raters</strong></h3><br>
+      <h3 class="text-center"><strong>Rated By {{rating_stats}}</strong></h3><br>
       {% if ratings %}
       <div class="vote-titles">
         <img src="" alt="voter" class="invisible">

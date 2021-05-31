@@ -12,7 +12,7 @@ urlpatterns=[
   path('project/<int:project_id>/',views.project,name='project'),
   path('profile/(?P<profile_id>\d+)', views.profile, name='profile'),
   # path('profile/<int:profile_id>/',views.profile,name='profile'),
-  path('update_profile/<username>/',views.update_profile,name='update_profile')
+  path('update_profile/(?P<profile_id>\d+)',views.update_profile,name='update_profile')
 ]
 
 if settings.DEBUG:
