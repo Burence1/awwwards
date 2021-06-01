@@ -108,3 +108,10 @@ class RatingsTestClass(TestCase):
     ratings=Ratings.project_votes(project=self.project)
     self.assertEqual(ratings[0].name, 'portfolio')
     self.assertTrue(len(ratings),1)
+
+  def test_project_voters(self):
+    self.profile=Profile(user=self.user,url='www.lol.com',profile_pic='lol.png',bio='awesome',location='kenya',email='mail@gmail.com')
+    self.profile.save_profile()
+    voters=Ratings.project_votes(self.profile)
+    self.assertTrue(len(voters),1)
+    self.assertEqual(voters[0].rater.user.username, 'burens')
