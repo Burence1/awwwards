@@ -17,6 +17,8 @@ urlpatterns=[
   re_path('update_profile/(?P<profile_id>\d+)',views.update_profile,name='update_profile'),
   path('api/profiles/',views.ProfileList.as_view()),
   path('api/projects/',views.ProjectsList.as_view()),
+  path('api/profile/',views.ProfilesList),
+  path('api/project/',views.ProjectList),
 ]
 
 if settings.DEBUG:

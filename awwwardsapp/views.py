@@ -294,3 +294,22 @@ class ProjectsList(APIView):
     serializers=ProjectsSerializer(projects,many=True)
     return Response(serializers.data)
 #end of class based api-endpoints
+
+
+#function based api-endpoints
+@api_view(['GET','POST','DELETE','PUT'])
+@csrf_exempt
+def ProfilesList(request):
+  if request.method == 'GET':
+    profiles=Profile.objects.all()
+    serializers=ProfileSerializer(profiles,many=True)
+    return Response(serializers.data)
+
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+@csrf_exempt
+def ProjectList(request):
+  if request.method == 'GET':
+    projects=Projects.objects.all()
+    serializers=ProjectsSerializer(projects,many=True)
+    return Response(serializers.data)
+#end of funtion-based api-endpoints
