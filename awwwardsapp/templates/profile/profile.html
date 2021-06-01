@@ -19,9 +19,11 @@
         <div class="profile_image">
           <p><i class="bi bi-envelope"></i> {{profile.email}}</p>
         </div>
+        {% if profile.user == request.user and request.user.is_authenticated %}
         <div class="update"><a href="{%url 'update_profile' profile.user.id %}">
           <button type="button" class="btn btn-secondary">Update Profile</button></a>
         </div>
+        {%endif%}
       </div>
     </div>
   </div>
