@@ -305,7 +305,6 @@ def ProfilesList(request):
     serializers=ProfileSerializer(profiles,many=True)
     return Response(serializers.data)
 
-
 @api_view(['GET', 'POST', 'DELETE', 'PUT'])
 @csrf_exempt
 def ProjectList(request):
@@ -313,5 +312,4 @@ def ProjectList(request):
     projects=Projects.objects.all()
     serializers=ProjectsSerializer(projects,many=True)
     return Response(serializers.data)
-
 #end of funtion-based api-endpoints
