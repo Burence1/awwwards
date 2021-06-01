@@ -19,6 +19,7 @@ from .email import send_welcome_email
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer,ProjectsSerializer
+from awwwardsapp import serializer
 
 # Create your views here.
 
@@ -277,9 +278,15 @@ def rate_project(request, project_id):
       form = RatingForm()
   return render(request, 'project/project.html', {"form": form})
 
-
+#class-based developed api end-points
 class ProfileList(APIView):
   def get(self,request,format=None):
     profiles=Profile.objects.all()
     serializers=ProfileSerializer(profiles,many=True)
+    return Response(serializers.data)
+
+class ProjectsList(APIView):
+  def get(self,request,format=None):
+    projects=Projects.objects.all()
+    serializers=ProjectsSerializer(projects,many=True)
     return Response(serializers.data)
