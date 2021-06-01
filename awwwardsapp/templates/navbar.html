@@ -2,34 +2,17 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" id="nav">
   <!-- Container wrapper -->
   <div class="container-fluid">
-    <!-- Toggle button -->
-    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- Navbar brand -->
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <form class="navbar-form" role="search" , action="{% url 'search' %}">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search project" name="project">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-            </div>
-          </div>
-        </form>
-      </ul>
-      <div class="logo-wrap" style="margin-left: auto; margin-right: auto;">
-        <a class="nav-link" href="/" style="color: black; font-size:xx-large;"><strong>awwwards.</strong></a>
+    <form class="navbar-form" role="search" , action="{% url 'search' %}" id="proj-search">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search project" name="project">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
       </div>
-      <!-- Left links -->
+    </form>
+    <div class="logo-wrap" style="margin-left: auto; margin-right: auto;">
+      <a class="nav-link" href="/" style="color: black; font-size:xx-large;"><strong>awwwards.</strong></a>
     </div>
-    
-    <!-- Right elements -->
-    <!-- Avatar -->
     <div class="d-flex align-items-center">
       <!-- Collapsible wrapper -->
       <a href="#" data-toggle="modal" data-target="#myModal">
