@@ -2,3 +2,9 @@
   width: 2em;
   height: 2em;
 }
+#project-card:hover {
+    box-shadow: 0 40px 60px -20px #00bdaa;
+    z-index: 100;
+    opacity: 0.9;
+    transition: 0.9s;
+}

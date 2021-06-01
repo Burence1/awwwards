@@ -37,15 +37,12 @@
 <div class="container" id="projects">
   {%for project in projects%}
   <div class="col-md-4">
-    <div class="card shadow p-3 mb-5 bg-white rounded card quote-card">
+    <div class="card shadow p-3 mb-5 bg-white rounded card quote-card" id="project-card">
       <div class="card__image border-tlr-radius">
         <a href="{% url 'project' project.id %}"><img src="{{project.project_image.url}}" alt="image"
             style="width: 100%;" class="border-tlr-radius"></a>
       </div>
       <div class="cardbody">
-        <!-- <div class="card__share">
-          <a id="share" class="share-icon" href="{{project.urls}}" target="_blank"><i class="fas fa-share"></i></a>
-        </div> -->
         <div class="card__meta">
           {%if project.average_rating != 0.0 %}
           <a href="#">{{project.average_rating | floatformat:0}}</a>
@@ -55,7 +52,7 @@
         </div>
         <article class="card__article">
           <h3><a href="{% url 'project' project.id %}"
-              style="text-transform: capitalize;color: black;"><strong>{{project.name}}</strong></a></h3>
+              style="text-transform: capitalize;color: black;text-decoration: none;"><strong>{{project.name}}</strong></a></h3>
           <p>{{project.description}}</p>
         </article>
         <div class="card__action">

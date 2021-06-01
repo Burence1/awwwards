@@ -73,9 +73,9 @@ class Meta:
   ordering=['-pub_date']
 
 class Ratings(models.Model):
-  design = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))))
-  usability = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))))
-  content = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))))
+  design = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))),blank=False)
+  usability = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))),blank=False)
+  content = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))),blank=False)
   rater = models.ForeignKey(Profile,on_delete=models.CASCADE)
   projects=models.ForeignKey(Projects,on_delete=models.CASCADE, related_name='ratings')
   pub_date=models.DateTimeField(auto_now_add=True)

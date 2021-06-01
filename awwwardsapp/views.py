@@ -14,8 +14,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import statistics
 from django.urls import reverse
+from .email import send_welcome_email
 
 # Create your views here.
+
+
+@login_required
+def welcome_mail(request):
+  user = request.user
+  email = user.email
+  name = user.username
+  send_welcome_email(name, email)
+  return redirect(index)
+
 @login_required
 def index(request):
   date=dt.date.today()
@@ -42,7 +53,7 @@ def signup(request):
 
       user=authenticate(username=username,password=first_password)
       login(request,user)
-      return redirect('home')
+      return redirect('welcome')
   else:
     form=SignupForm()
   return render(request,'registration/registration.html',{"form":form})

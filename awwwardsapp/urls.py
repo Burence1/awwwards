@@ -9,6 +9,7 @@ urlpatterns=[
   path('signup/',views.signup,name='signup'),
   path('new_project/',views.new_project,name='new_project'),
   path('search/',views.search_project,name='search'),
+  path('email/', views.welcome_mail, name='welcome'),
   path('project/<int:project_id>/',views.project,name='project'),
   # path('profile/(?P<profile_id>\d+)', views.profile, name='profile'),
   path('profile/<int:profile_id>/',views.profile,name='profile'),

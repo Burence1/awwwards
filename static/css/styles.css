@@ -162,4 +162,24 @@ background-position: right center; /* change the direction of the change here */
 color: #fff;
 text-decoration: none;
 }
-         
+
+#project-card:hover{
+    box-shadow: 0 40px 60px -20px #00bdaa;
+    z-index: 100;
+    opacity: 0.9;
+    transition: 0.9s;
+}
+
+.rounded-circle:hover{
+    box-shadow: 0 40px 60px -20px #00bdaa;
+    z-index: 100;
+    opacity: 0.9;
+    transition: 0.9s;
+}
+
+.nav-link:hover{
+    box-shadow: 0 40px 60px -20px #00bdaa;
+    z-index: 100;
+    opacity: 0.9;
+    transition: 0.9s;
+}

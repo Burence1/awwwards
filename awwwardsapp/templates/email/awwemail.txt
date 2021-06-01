@@ -1,0 +1,3 @@
+Hello {{name}}
+
+Welcome to awwwards, rate and add your projects to be rated
