@@ -20,9 +20,7 @@ class ProfileClass(TestCase):
     self.assertTrue(isinstance(self.profile, Profile))
 
   def test_save_profile(self):
-    self.kanosa=User(username='kanosa')
-    self.kanosa.save()
     self.new_profile=Profile(user=self.kanosa,url='www.lol.com',profile_pic='lol.png',bio='awesome',location='kenya',email='mail@gmail.com')
     self.new_profile.save_profile()
     profiles=Profile.objects.all()
-    self.assertEqual(len(profiles),2)
+    self.assertEqual(len(profiles),1)

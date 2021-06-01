@@ -35,7 +35,7 @@
      style="float: center; margin-right: 10px;" />
 
 ## Project after rating
-<img src="./static/images/project2.png"
+<img src="./static/images/project3.png"
      alt="Homepage"
      style="float: center; margin-right: 10px;" />
 
