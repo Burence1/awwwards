@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.core.checks import messages
+from django.http import response
 from django.http.request import HttpHeaders
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect, render
@@ -20,6 +21,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer,ProjectsSerializer
 from awwwardsapp import serializer
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
@@ -290,3 +293,25 @@ class ProjectsList(APIView):
     projects=Projects.objects.all()
     serializers=ProjectsSerializer(projects,many=True)
     return Response(serializers.data)
+#end of class based api-endpoints
+
+
+#function based api-endpoints
+@api_view(['GET','POST','DELETE','PUT'])
+@csrf_exempt
+def ProfilesList(request):
+  if request.method == 'GET':
+    profiles=Profile.objects.all()
+    serializers=ProfileSerializer(profiles,many=True)
+    return Response(serializers.data)
+
+
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+@csrf_exempt
+def ProjectList(request):
+  if request.method == 'GET':
+    projects=Projects.objects.all()
+    serializers=ProjectsSerializer(projects,many=True)
+    return Response(serializers.data)
+
+#end of funtion-based api-endpoints
