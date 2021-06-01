@@ -60,7 +60,7 @@
             <img src="{{project.profile.profile_pic.url}}" class="rounded-circle" alt="user">
             <div class="card__author-content">
               By <a href="{%url 'profile' project.profile.user.id %}"
-                style="color: #00bdaa;text-transform: capitalize; color: black;text-decoration: none;"><i> {{project.profile.user.username}}</i></a>
+                style="color: #00bdaa;text-transform: capitalize; color: black;text-decoration: none;">{{project.profile.user.username}}</a>
                 <a id="share" class="share-icon" href="{{project.urls}}" target="_blank" style="float: right;color: black;"><i
                     class="fa fa-share-alt" aria-hidden="true"></i></a>
             </div>
