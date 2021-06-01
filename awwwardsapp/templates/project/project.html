@@ -2,7 +2,7 @@
 {%load bootstrap4%}
 {%load static%}
 {%block content%}
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 5em;">
   <div class="row">
     <div class="col-md-12">
       <div class="jumbotron"
@@ -78,7 +78,7 @@
               <form action="{%url 'rate_project' project_id=project.id%}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <button type="submit" class="btn btn-sm btn-info">Rate</button>
+                <button type="submit" class="btn btn-sm" style="color: #00bdaa;">Rate</button>
               </form>
               {% endif %}
             </div>
@@ -109,7 +109,7 @@
       </div>
       {% endfor %}
       {% else %}
-      <div class="text-center have-already">No votes yet</div>
+      <div class="text-center have-already">No ratings to display</div>
       {% endif %}
     </div>
   </div>
