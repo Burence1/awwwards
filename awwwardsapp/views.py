@@ -4,6 +4,7 @@ from django.core.checks import messages
 from django.http.request import HttpHeaders
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect, render
+from rest_framework import serializers
 from .forms import SignupForm,AddProjectForm,RatingForm,UpdateUserForm,UpdateProfile
 from django.contrib.auth import login, authenticate
 from .models import Profile,Projects,Ratings
@@ -15,6 +16,9 @@ from django.contrib.auth.decorators import login_required
 import statistics
 from django.urls import reverse
 from .email import send_welcome_email
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectsSerializer
 
 # Create your views here.
 
@@ -272,3 +276,10 @@ def rate_project(request, project_id):
   else:
       form = RatingForm()
   return render(request, 'project/project.html', {"form": form})
+
+
+class ProfileList(APIView):
+  def get(self,request,format=None):
+    profiles=Profile.objects.all()
+    serializers=ProfileSerializer(profiles,many=True)
+    return Response(serializers.data)

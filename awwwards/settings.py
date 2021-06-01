@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'bootstrap4',
     'crispy_forms',
+    'rest_framework',
 ]
 
 cloudinary.config(
