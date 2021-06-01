@@ -24,3 +24,29 @@ class ProfileClass(TestCase):
     self.new_profile.save_profile()
     profiles=Profile.objects.all()
     self.assertEqual(len(profiles),1)
+
+class ProjectTest(TestCase):
+  def setUp(self):
+    self.user=User.objects.create(username='burens')
+    self.user.save()
+    self.project=Projects.objects.create(id=1,name='portfolio',description='lol',project_image='image.png',urls='www.lol.com',profile=self.user)
+
+  def tearDown(self):
+      Projects.objects.all().delete()
+      User.objects.all().delete()
+
+  def test_instance(self):
+    self.assertTrue(isinstance(self.project, Projects))
+
+  def test_save_project(self):
+    self.project.save_project()
+    total_proj=Projects.objects.all()
+    self.assertEqual(len(total_proj),1)
+
+  def test_delete_project(self):
+    self.project.save_project()
+    projects=Projects.objects.all()
+    self.assertEqual(len(projects),1)
+    self.project.delete_project()
+    total_proj=Projects.objects.all()
+    self.assertTrue(len(total_proj)==0)
