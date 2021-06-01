@@ -1,5 +1,3 @@
-from django import urls
-from awwwardsapp.views import profile, project
 from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Profile,Projects,Ratings
