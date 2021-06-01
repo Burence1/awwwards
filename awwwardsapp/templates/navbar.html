@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white" id="nav">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" id="nav">
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Toggle button -->
@@ -27,34 +27,11 @@
       </div>
       <!-- Left links -->
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document" style="position: fixed;top: 8%;right: 13%;">
-        <div class="modal-content" style="width: 180%;">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body text-left">
-            <ul style="list-style: none;">
-              {% if user.is_authenticated %}
-              <li><a href="{%url 'profile' request.user.id %}" style="color: black;"><strong><i class="fa fa-user-circle"
-                      aria-hidden="true" style="color: black; margin-right: 1em;"></i>My Profile</strong></a></li>
-              {%endif%}
-              <li><a href="/new_project" style="color: black;"><strong><i class="fa fa-upload" aria-hidden="true"
-                      style="color: black; margin-right: 1em;"></i>Submit Project </strong></a></li>
-              <li><a href="/logout" style="color: black;"><strong><i class="bi bi-box-arrow-right"
-                      style="color: black; margin-right: 1em;"></i>Logout</strong></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Collapsible wrapper -->
-
+    
     <!-- Right elements -->
     <!-- Avatar -->
     <div class="d-flex align-items-center">
+      <!-- Collapsible wrapper -->
       <a href="#" data-toggle="modal" data-target="#myModal">
         <img src="https://mdbootstrap.com/img/new/avatars/2.jpg" class="rounded-circle" height="25" alt=""
           loading="lazy" />
@@ -65,51 +42,26 @@
   <!-- Container wrapper -->
 </nav>
 <!-- Navbar -->
-
-<!-- <header class="cd-header">
-  <div class="header-wrapper">
-    <div class="logo-wrap">
-      <a href="/">a<span>WWW</span>ards.</a>
-    </div>
-    <div id="wrapper">
-      <div class="menu">
-        <h1>menu</h1>
-        <ul>
-          <li><a href="/">home</a></li>
-
-          <li><a href="/new_project">add a project</a></li>
-          <li><a href="/logout">logout</a></li>
-          <form class="navbar-form" role="search" , action="{% url 'search' %}">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search project" name="project">
-              <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-              </div>
-            </div>
-          </form>
-        </ul>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document" style="position: fixed;top: 8%;right: 13%;z-index: 3;">
+    <div class="modal-content" style="width: 180%;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="content">
-        <div class="button">
-          <button type="button" class="nav-toggle" aria-label="toggle navigation">
-            <span class="nav-label">Menu</span>
-            <span class="nav-svg">
-              <span class="dots"></span>
-              <svg width="50" height="50" version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 524.5 2000 2000.5"
-                enable-background="new 0 524.5 2000 2000.5" xml:space="preserve">
-                <path class="x" fill="none" stroke="#000000" stroke-miterlimit="10" d="M1410.5,1235.2H589.3" />
-                <path class="x" fill="none" stroke="#000000" stroke-miterlimit="10" d="M1410.5,1815H589.3" />
-                <path class="yy" fill="none" stroke="#000000" stroke-miterlimit="10"
-                  d="M1410.5,1524.7c0,0-821.2,0-821.2,0c-211.3,0-260,98-218.2,217.6
-                l0,0.1c90.1,260.7,337.6,447.9,628.9,447.9c367.4,0,665.2-297.8,665.2-665.2c0-79-13.8-154.8-39.1-225.2" />
-                <path class="yy" fill="none" stroke="#000000" stroke-miterlimit="10" d="M589.3,1524.7c0,0,821.2,0,821.2,0c211.3,0,260-98,218.2-217.6l0-0.1
-                c-90.1-260.7-337.6-447.9-628.9-447.9c-367.4,0-665.2,297.8-665.2,665.2c0,79,13.8,154.8,39.1,225.2" />
-              </svg>
-            </span>
-          </button>
-        </div>
+      <div class="modal-body text-left">
+        <ul style="list-style: none;">
+          {% if user.is_authenticated %}
+          <li><a href="{%url 'profile' request.user.id %}" style="color: black;"><strong><i class="fa fa-user-circle"
+                  aria-hidden="true" style="color: black; margin-right: 1em;"></i>My Profile</strong></a></li>
+          {%endif%}
+          <li><a href="/new_project" style="color: black;"><strong><i class="fa fa-upload" aria-hidden="true"
+                  style="color: black; margin-right: 1em;"></i>Submit Project </strong></a></li>
+          <li><a href="/logout" style="color: black;"><strong><i class="bi bi-box-arrow-right"
+                  style="color: black; margin-right: 1em;"></i>Logout</strong></a></li>
+        </ul>
       </div>
     </div>
   </div>
-</header> -->
+</div>

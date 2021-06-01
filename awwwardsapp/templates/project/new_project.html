@@ -2,14 +2,16 @@
 {% load static %}
 {% load bootstrap4 %}
 {% block content %}
-<div class="box mt-5">
-  <div class="text-center">
-    <div class="guide"><strong>Add a project</strong></div>
+<div class="box" style="margin-top: 6em;">
+  <div class="card shadow p-3 mb-5 bg-white rounded card quote-card">
+    <div class="text-center">
+      <div class="guide"><strong>Add a project</strong></div>
+    </div>
+    <form action="{%url 'new_project'%}" method="post" enctype="multipart/form-data">
+      {%csrf_token%}
+      {% bootstrap_form form%}
+      <input type="submit" class="btn btn-dark " value=" Add Project">
+    </form>
   </div>
-  <form action="{%url 'new_project'%}" method="post" enctype="multipart/form-data">
-    {%csrf_token%}
-    {% bootstrap_form form%}
-    <input type="submit" class="btn btn-dark " value=" Add Project">
-  </form>
 </div>
 {% endblock %}

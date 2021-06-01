@@ -4,10 +4,15 @@ body{
 }
 
 #nav{
-  transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  -moz-transition: all 0.4s ease-in-out;
-  box-shadow: 0 0 1.8rem rgba(0, 0, 0, .15);
+     z-index: 2;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    box-shadow: 0 0 1.8rem #00bdaa;
+}
+
+.shrink {
+  height: 50px;
 }
 
 #average{
