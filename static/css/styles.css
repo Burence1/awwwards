@@ -1,5 +1,6 @@
 body{
     font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
 }
 
 #nav{
@@ -182,4 +183,9 @@ text-decoration: none;
     z-index: 100;
     opacity: 0.9;
     transition: 0.9s;
+}
+
+.search-title{
+    margin-top: 2em;
+    margin-bottom: 1em;
 }

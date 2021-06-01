@@ -53,7 +53,7 @@
         <article class="card__article">
           <h3><a href="{% url 'project' project.id %}"
               style="text-transform: capitalize;color: black;text-decoration: none;"><strong>{{project.name}}</strong></a></h3>
-          <p>{{project.description}}</p>
+          <p>{{project.description|truncatechars:100}}</p>
         </article>
         <div class="card__action">
           <div class="card__author text-center">
