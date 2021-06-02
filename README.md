@@ -57,6 +57,14 @@
 * Users can view projects posted by users in users' profile pages
 * Users can view projects average/overall scores
 * Users can search for projects
+* User can view all profiles and projects in the application using api endpoints
+
+## Api-endpoints
+### Get profiles
+* https://burence-awwwards.herokuapp.com/api/profiles/ or https://burence-awwwards.herokuapp.com/api/profile/
+
+### Get projects
+* https://burence-awwwards.herokuapp.com/api/projects/ or https://burence-awwwards.herokuapp.com/api/project/
 
 ## Known Bugs
 {Fortunately, the project has no known bugs}
