@@ -40,7 +40,7 @@
      style="float: center; margin-right: 10px;" />
 
 ## Setup/Installation
-* Navigate to the project repository via https://github.com/Burence1/instagramex.git
+* Navigate to the project repository via https://github.com/Burence1/awwwards.git
 * Change your working directory to the clone location of your preference.
 * Use the git clone command in the terminal to clone the project to the preferred local machine directory.
 * To work on the cloned project, ensure to have any text editors of your choice.}
