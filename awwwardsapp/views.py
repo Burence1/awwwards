@@ -297,7 +297,7 @@ class ProjectsList(APIView):
 
 
 #function based api-endpoints
-@api_view(['GET','POST','DELETE','PUT'])
+@api_view(['GET'])
 @csrf_exempt
 def ProfilesList(request):
   if request.method == 'GET':
@@ -305,7 +305,7 @@ def ProfilesList(request):
     serializers=ProfileSerializer(profiles,many=True)
     return Response(serializers.data)
 
-@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+@api_view(['GET'])
 @csrf_exempt
 def ProjectList(request):
   if request.method == 'GET':
